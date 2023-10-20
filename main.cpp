@@ -58,38 +58,46 @@ Purpose:  This project will show you the difference between member functions and
 #include <string>
 struct T
 {
-    T(<#type name#> v, const char* <#variable name#>)   //1
-    //2
-    //3
+    T(int x, const char* y) : duration(x), song(y) {}
+    int duration;
+    std::string song;
 };
 
-struct <#structName1#>                                //4
+struct CompareStruct                                
 {
-    <#type name#> compare(<#type name#> a, <#type name#> b) //5
+    T* compare(T* a, T* b) 
     {
-        if( a->value < b->value ) return a;
-        if( a->value > b->value ) return b;
+        if( a->duration < b->duration ) return a;
+        if( a->duration > b->duration ) return b;
         return nullptr;
     }
 };
 
 struct U
 {
-    float <#name1#> { 0 }, <#name2#> { 0 };
-    <#returnType#> <#memberFunction#>(<#type name#>* <#updatedValue#>)      //12
+    float name1 { 0 }, name2 { 0 };
+    float memberFunction(float* updatedValue)      //12
     {
-        
+        std::cout << "U's name1 value: " << name1 << std::endl;
+        name1 = *updatedValue;
+        std::cout << "U's name1 updated value: " << name1 << std::endl;
+        while( std::abs(name2 - name1) > 0.001f )
+            {
+                name2 -= 0.001f;
+            }
+        std::cout << "U's name2 updated value: " << name2 << std::endl;
+        return name2 * name1;
     }
 };
 
-struct <#structname2#>
+struct StructName2
 {
-    static <#returntype#> <#staticFunctionA#>(U* that, <#type name#>* <#updatedValue#> )        //10
+    static float staticFunctionA(U* that, float* updatedValue )        //10
     {
-        std::cout << "U's <#name1#> value: " << that-><#name1#> << std::endl;
-        that-><#name1#> = <#updatedValue#>;
-        std::cout << "U's <#name1#> updated value: " << that-><#name1#> << std::endl;
-        while( std::abs(that-><#name2#> - that-><#name1#>) > 0.001f )
+        std::cout << "U's name1 value: " << that-><name1 = *updatedValue << std::endl;
+        that->name1 = updatedValue;
+        std::cout << "U's name1 updated value: " << that->name1 << std::endl;
+        while( std::abs(that->name2 - that->name1) > 0.001f )
         {
             /*
              write something that makes the distance between that-><#name2#> and that-><#name1#> get smaller
@@ -117,17 +125,24 @@ struct <#structname2#>
 
 int main()
 {
-    T <#name1#>( , );                                             //6
-    T <#name2#>( , );                                             //6
+    T object1(10, "cancion 1" );                                             //6
+    T object2(20, "cancion 2" );                                             //6
     
-    <#structName1#> f;                                            //7
-    auto* smaller = f.compare( , );                              //8
-    std::cout << "the smaller one is << " << smaller->name << std::endl; //9
-    
-    U <#name3#>;
+    T* f = CompareStruct.compare(&object1,object2);                                            //7
+    auto* smaller = f.compare(object1,object2);                              //8
+    if (smaller != nullptr)
+    {
+     std::cout << "the smaller one is << " << smaller->song << std::endl;
+        else 
+        {
+        std::cout << "Not found" << std::endl;
+        }
+            //9
+    }
+    U name3;
     float updatedValue = 5.f;
-    std::cout << "[static func] <#name3#>'s multiplied values: " << <#structname2#>::<#staticFunctionA#>( , ) << std::endl;                  //11
+    std::cout << "[static func] name3's multiplied values: " << Structname2::staticFunctionA( , ) << std::endl;                  //11
     
-    U <#name4#>;
-    std::cout << "[member func] <#name4#>'s multiplied values: " << <#name4#>.<#memberFunction#>( &updatedValue ) << std::endl;
+    U name4;
+    std::cout << "[member func] name4's multiplied values: " << name4.memberFunction( &updatedValue ) << std::endl;
 }
